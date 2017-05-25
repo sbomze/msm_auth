@@ -31,12 +31,12 @@
       <dd>
         <ul class="list-group">
           <% @movie.characters.each do |character| %>
-            <li class="list-group-item">
-              <a href="/actors/<%= character.actor_id %>">
-                <%= character.actor.name %>
-              </a>
-              (<%= character.name %>)
-            </li>
+          <li class="list-group-item">
+            <a href="/actors/<%= character.actor_id %>">
+              <%= character.actor.name %>
+            </a>
+            (<%= character.name %>)
+          </li>
           <% end %>
           <li class="list-group-item list-group-item-success">
             Add a new character
@@ -76,6 +76,26 @@
       </dd>
     </dl>
 
+    <div class="row">
+      <div class="col-md-12">
+        <form action="/create_bookmark" method="post">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <div class="form-group">
+            <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+            <input type="hidden" id="movie_id" name="movie_id" placeholder="movie" class="form-control" value="<%=@movie.id%>">
+          </div>
+
+          <button class="btn btn-success">
+            Create Bookmark
+          </button>
+
+          <a href="/bookmarks">Cancel</a>
+        </form>
+      </div>
+    </div>
+
     <div class="btn-group btn-group-justified">
       <a href="/movies" class="btn btn-primary">
         Back
@@ -86,6 +106,7 @@
       <a href="/delete_movie/<%= @movie.id %>" class="btn btn-danger" rel="nofollow">
         Delete
       </a>
-    </div>
+    </a>
   </div>
+</div>
 </div>
